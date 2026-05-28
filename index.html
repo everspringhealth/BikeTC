@@ -192,7 +192,23 @@
   .step span{font-size:.94rem;color:#5a3a14}
   .hashtag{display:inline-block;margin-top:34px;background:#3a2400;color:var(--sun);font-weight:700;
     padding:12px 22px;border-radius:40px;font-size:1.05rem;position:relative}
-  @media(max-width:680px){.game{padding:36px 28px}}
+  .clue-machine{position:relative;margin-top:32px}
+  .draw-btn{background:#3a2400;color:var(--sun);border:0;cursor:pointer;font-family:inherit;font-weight:700;
+    font-size:1.1rem;padding:16px 30px;border-radius:44px;transition:transform .18s ease, box-shadow .18s ease}
+  .draw-btn:hover{transform:translateY(-3px);box-shadow:0 12px 24px rgba(58,36,0,.28)}
+  .clue-card{margin-top:22px;background:#fff;border-radius:20px;padding:28px 30px;max-width:580px;
+    box-shadow:0 18px 38px rgba(58,36,0,.2);animation:cluePop .32s ease}
+  @keyframes cluePop{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+  .clue-num{font-family:"Fraunces",serif;font-style:italic;color:var(--sun-deep);font-weight:600;font-size:.95rem;margin-bottom:10px}
+  .clue-text{font-family:"Fraunces",serif;font-weight:600;font-size:1.32rem;line-height:1.38;color:var(--ink);margin:0}
+  .clue-card .reveal-btn{margin-top:20px;background:#fff;color:var(--sky-deep);border:2px solid var(--sky-deep);
+    font-family:inherit;font-weight:700;font-size:.92rem;padding:10px 20px;border-radius:40px;cursor:pointer;transition:transform .15s ease, background .15s ease, color .15s ease}
+  .clue-card .reveal-btn:hover{transform:translateY(-2px);background:var(--sky-deep);color:#fff}
+  .clue-reveal{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+  .clue-reveal .reveal-label{display:block;font-weight:700;color:var(--sky-deep);text-transform:uppercase;font-size:.72rem;letter-spacing:.07em;margin-bottom:5px}
+  .clue-reveal strong{font-family:"Fraunces",serif;color:var(--ink);font-size:1.18rem}
+  .clue-reveal .reveal-hint{display:block;margin-top:7px;color:var(--ink-soft);font-size:.96rem}
+  @media(max-width:680px){.game{padding:36px 28px}.clue-card{padding:24px}}
 
   /* footer */
   footer{background:var(--ink);color:#C7D4DE;padding:64px 0 40px}
@@ -400,11 +416,26 @@
       <h2>Play Bike Twin Cities</h2>
       <p>A scavenger hunt for everyday riders. The goal isn't distance — it's getting out to somewhere worth going, and sharing the moment you arrive.</p>
       <div class="steps">
-        <div class="step"><div class="num">1</div><b>Pick a spot</b><span>Choose a destination from "Places worth pedaling to" — or somewhere of your own.</span></div>
+        <div class="step"><div class="num">1</div><b>Draw a clue</b><span>Spin up a random spot below — or pick a destination of your own.</span></div>
         <div class="step"><div class="num">2</div><b>Ride there</b><span>Take the scenic way. The trip is half the point.</span></div>
         <div class="step"><div class="num">3</div><b>Snap the proof</b><span>A photo of you and your bike at the destination.</span></div>
         <div class="step"><div class="num">4</div><b>Share it</b><span>Post it and tag the ride so others can find good places to go.</span></div>
       </div>
+
+      <div class="clue-machine">
+        <button class="draw-btn" id="drawBtn">Draw a clue →</button>
+        <div class="clue-card" id="clueCard" hidden>
+          <div class="clue-num" id="clueNum"></div>
+          <p class="clue-text" id="clueText"></p>
+          <button class="reveal-btn" id="revealBtn">Reveal the spot</button>
+          <div class="clue-reveal" id="clueReveal" hidden>
+            <span class="reveal-label">The spot</span>
+            <strong id="clueSpot"></strong>
+            <span class="reveal-hint" id="clueHint"></span>
+          </div>
+        </div>
+      </div>
+
       <span class="hashtag">#BikeTC · #BikeTwinCities</span>
     </div>
   </div>
@@ -473,7 +504,69 @@
       }));
     }
   })();
-  // staggered reveal on scroll
+
+  // ---- Play Bike Twin Cities: clue randomizer ----
+  // To edit: change a clue/spot/hint, or add a new {clue, spot, hint} object.
+  const CLUES = [
+    {clue:"Iron rails once crossed here; now only feet and wheels do. Stand at its curve with the skyline behind you and the Mississippi's only true waterfall thundering below.", spot:"Stone Arch Bridge", hint:"Downtown riverfront — reachable on West River Parkway."},
+    {clue:"A poet wrote of it without ever seeing it. Fifty-three feet of water drops into a wooded glen on the city's south edge — chase the mist to the bottom of the gorge.", spot:"Minnehaha Falls", hint:"Minnehaha Regional Park, at the south end of the gorge ride."},
+    {clue:"An impossible utensil cradles a piece of fruit big enough to climb on, fountain and all, in a garden of sculpture beside the white-walled art museum.", spot:"Spoonbridge and Cherry, Minneapolis Sculpture Garden", hint:"Loring Park area, just off the downtown trails."},
+    {clue:"On summer evenings, free music drifts over the water from a little white-spired pavilion. Find the stage on the lake's shore and stay for a song.", spot:"Lake Harriet Bandshell", hint:"Chain of Lakes."},
+    {clue:"The biggest of the city lakes wears its restored Dakota name again. Circle it, hit the beach, and watch the sailboats against the skyline.", spot:"Bde Maka Ska", hint:"Chain of Lakes, at the west end of the Midtown Greenway."},
+    {clue:"Two wooded islands sit in a quiet, mansion-rimmed lake shaped like a lopsided heart. The most peaceful loop in the chain.", spot:"Lake of the Isles", hint:"Chain of Lakes."},
+    {clue:"In the city's biggest park, a boardwalk floats over a mat of peat where tamaracks grow and the ground trembles underfoot. Find the floating forest.", spot:"The Quaking Bog, Theodore Wirth Park", hint:"Northwest Minneapolis, on the Grand Rounds."},
+    {clue:"Once the flour-milling capital of the world, the ruined walls of the great mills still stand beside the falls and a museum built into them.", spot:"Mill Ruins Park & Mill City Museum", hint:"Downtown riverfront, by the Stone Arch Bridge."},
+    {clue:"A grassy spiral mound rises from flat ground near the deep-blue theater, built to be walked to the top for a slow turn of river and skyline.", spot:"Gold Medal Park", hint:"Downtown riverfront, beside the Guthrie."},
+    {clue:"On the highest hill near the university stands a pointed water tower locals swear belongs on a witch. Climb the hill for the view; the roof itself rarely opens.", spot:"The Witch's Hat Water Tower, Tower Hill Park", hint:"Prospect Park, near the U of M and East River trails."},
+    {clue:"A lighthouse on the Mississippi, hundreds of miles from any sea — a small brick beacon in a riverside park where log booms once jammed.", spot:"Boom Island Park lighthouse", hint:"Upper riverfront, just north of downtown."},
+    {clue:"A wide, friendly lake on the south side with a sandy main beach and a quieter sister pond, named for the grandmother in an old epic poem.", spot:"Lake Nokomis", hint:"South Minneapolis, near Minnehaha."},
+    {clue:"Pull off the sunken bike trench into a former department store now packed with food stalls from every corner of the world. Refuel mid-ride.", spot:"Midtown Global Market", hint:"Right on the Midtown Greenway."},
+    {clue:"A black downtown nightclub wears silver stars for every act that ever played it — find the single gold one painted for the hometown genius in purple.", spot:"First Avenue (the stars wall)", hint:"Downtown Minneapolis."},
+    {clue:"Under a great glass dome on the city's other side, it's tropical year-round, free to enter, and shares its grounds with a zoo.", spot:"Marjorie McNeely Conservatory, Como Park", hint:"Saint Paul, Como Park."},
+    {clue:"A vast domed cathedral crowns the hill above the capital city, visible for miles. Grind up to the overlook for the dome and the downtown beyond.", spot:"Cathedral of Saint Paul", hint:"Saint Paul, atop Summit Hill."},
+    {clue:"Roll one of the longest unbroken stretches of grand Victorian avenue in the country, past a famous author's old rowhouse and a railroad baron's mansion.", spot:"Summit Avenue", hint:"Saint Paul, from the Cathedral toward the river."},
+    {clue:"On a bluff high above the river's east side, ancient burial mounds keep watch and the view runs for miles over downtown and the valley. Tread respectfully.", spot:"Indian Mounds Regional Park", hint:"Saint Paul, near the Bruce Vento Trail."},
+    {clue:"Across the river from downtown's bluffs, a riverfront park and pavilion where paddlewheelers and excursion boats still dock. Watch the water traffic.", spot:"Harriet Island Regional Park", hint:"Saint Paul riverfront."},
+    {clue:"A slip of an island beneath the bridges by downtown, home to a boat club and a little bandstand — easy to miss, worth the detour.", spot:"Raspberry Island", hint:"Saint Paul, by Harriet Island."},
+    {clue:"Tucked below the bluff where the river bends, a small waterfall and a quiet boat landing reward anyone who drops down off the parkway.", spot:"Hidden Falls Regional Park", hint:"Saint Paul, along the Mississippi."},
+    {clue:"Coast down into a green ravine that was once a hidden immigrant village with no street addresses. Now a creek and a trail run where the houses stood.", spot:"Swede Hollow Park", hint:"Saint Paul, off the Bruce Vento Trail."},
+    {clue:"The city's largest natural park hides in the river floodplain: cottonwood forest, a quiet lake, and low trails that flood when the river runs high.", spot:"Crosby Farm Regional Park", hint:"Saint Paul, on the Sam Morgan Trail."},
+    {clue:"Sandstone caves cut into the river bluff once grew mushrooms and, later, hid Prohibition-era gangsters behind a speakeasy door. Find them on the south bank.", spot:"Wabasha Street Caves", hint:"Saint Paul, south side of the river."},
+    {clue:"Between the two cities, watch a boat rise or fall inside a giant concrete elevator on the river as the dam holds the water back. Find the lock.", spot:"Lock and Dam No. 1 (Ford Dam)", hint:"On the river between Minneapolis and Saint Paul, near Hidden Falls."}
+  ];
+  (function(){
+    const draw = document.getElementById('drawBtn');
+    const card = document.getElementById('clueCard');
+    if(!draw || !card) return;
+    const numEl = document.getElementById('clueNum');
+    const textEl = document.getElementById('clueText');
+    const revealBtn = document.getElementById('revealBtn');
+    const revealWrap = document.getElementById('clueReveal');
+    const spotEl = document.getElementById('clueSpot');
+    const hintEl = document.getElementById('clueHint');
+    let last = -1;
+    function pick(){
+      let i;
+      do { i = Math.floor(Math.random() * CLUES.length); }
+      while (i === last && CLUES.length > 1);
+      last = i; return i;
+    }
+    function show(){
+      const i = pick(), c = CLUES[i];
+      numEl.textContent = "Spot #" + (i + 1) + " of " + CLUES.length;
+      textEl.textContent = c.clue;
+      spotEl.textContent = c.spot;
+      hintEl.textContent = c.hint;
+      revealWrap.hidden = true;
+      revealBtn.hidden = false;
+      card.hidden = false;
+      card.style.animation = 'none'; void card.offsetWidth; card.style.animation = '';
+      draw.textContent = "Draw another →";
+    }
+    draw.addEventListener('click', show);
+    revealBtn.addEventListener('click', ()=>{ revealWrap.hidden = false; revealBtn.hidden = true; });
+  })();
+
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
   }, {threshold:.12});
