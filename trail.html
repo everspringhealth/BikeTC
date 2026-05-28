@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Trail guide — Bike TC</title>
+<meta name="description" content="Detailed guides to the greatest-hits bike trails of the Twin Cities — distances, connections, what to see, and tips. Brought to you by Everspring Health.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF8EC;--cream-2:#FBEED6;--ink:#243441;--ink-soft:#4A5C68;
+    --sky:#3F8FCB;--sky-deep:#1E5C8A;--sky-soft:#C7E6F8;
+    --sun:#FFC233;--sun-deep:#F2A01E;--coral:#FF8A5B;--line:#EADFC6;--maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:"Hanken Grotesk",sans-serif;color:var(--ink);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3{font-family:"Fraunces",serif;line-height:1.08;font-weight:900;letter-spacing:-.01em}
+  a{color:var(--sky-deep);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{font-family:"Fraunces",serif;font-style:italic;font-weight:500;color:var(--sun-deep);font-size:1.05rem}
+
+  /* logo */
+  .logo{display:block;height:100%}
+  .logo .ink{stroke:currentColor;fill:none;stroke-width:6.5;stroke-linecap:round;stroke-linejoin:round}
+  .logo .word{fill:currentColor;stroke:none}
+  .logo .sun{fill:var(--sun);stroke:none}
+  .logo .sun-stroke{stroke:var(--sun);fill:none;stroke-width:6.5;stroke-linecap:round}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:50;background:rgba(255,248,236,.9);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center;color:var(--ink)}
+  .brand .logo{height:38px;width:auto}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{color:var(--ink);font-weight:600;font-size:.96rem}
+  .nav-links a:hover{color:var(--sun-deep);text-decoration:none}
+  @media(max-width:860px){.nav-links{display:none}}
+
+  /* trail hero */
+  .t-hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sky-deep) 0%,var(--sky) 48%,#F6CB8E 88%,var(--sun) 100%);padding-top:18px}
+  .t-hero .sun-disc{position:absolute;left:78%;top:14%;width:150px;height:150px;border-radius:50%;
+    background:radial-gradient(circle,#FFE9A8 0%,var(--sun) 55%,rgba(255,194,51,0) 72%);z-index:1}
+  .crumb{position:relative;z-index:3;padding:6px 0 0}
+  .crumb a{color:#EAF6FF;font-weight:600;font-size:.92rem}
+  .crumb a:hover{color:#fff}
+  .t-hero-content{position:relative;z-index:3;padding:26px 0 40px;max-width:42ch}
+  .t-hero .eyebrow{color:var(--sun)}
+  .t-hero h1{color:var(--cream);font-size:clamp(2.2rem,5.6vw,3.8rem);margin:8px 0 14px;text-shadow:0 3px 16px rgba(10,40,65,.3)}
+  .t-hero .tagline{color:#EAF6FF;font-size:clamp(1.05rem,2.2vw,1.28rem);font-weight:500}
+  .stat-row{position:relative;z-index:3;display:flex;flex-wrap:wrap;gap:10px;padding-bottom:8px}
+  .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);color:#fff;border-radius:30px;
+    padding:8px 16px;font-size:.86rem;font-weight:600;backdrop-filter:blur(4px)}
+  .chip b{color:var(--sun);font-weight:700}
+  .skyline{display:block;width:100%;height:auto;position:relative;z-index:2;margin-top:30px}
+  .skyline path{fill:#16314A}
+
+  /* article */
+  .article{max-width:760px;margin:0 auto;padding:64px 28px 10px}
+  .article .lede{font-size:1.22rem;color:var(--ink);font-weight:500;margin-bottom:8px}
+  .article p{margin-top:20px;color:var(--ink-soft);font-size:1.08rem}
+  .article p:first-of-type{margin-top:0}
+  .article h2{font-size:1.5rem;margin:48px 0 6px;color:var(--ink)}
+
+  .highlights{list-style:none;margin-top:18px;display:grid;gap:12px}
+  .highlights li{display:flex;gap:14px;align-items:flex-start;font-size:1.04rem;color:var(--ink)}
+  .highlights li svg{flex:none;margin-top:3px}
+
+  .practical{margin-top:18px;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#fff}
+  .practical .row{display:flex;gap:16px;padding:15px 22px;border-top:1px solid var(--line);font-size:1rem}
+  .practical .row:first-child{border-top:none}
+  .practical .row .k{flex:none;width:120px;font-weight:700;color:var(--sky-deep);font-size:.82rem;letter-spacing:.05em;text-transform:uppercase;padding-top:2px}
+  .practical .row .v{color:var(--ink-soft)}
+
+  .callout{margin-top:28px;background:#FFF1CF;border-left:5px solid var(--sun);border-radius:0 16px 16px 0;
+    padding:18px 24px;font-size:1.04rem;color:#5a4310}
+  .callout b{color:#3f2e06}
+  .source-btn{display:inline-flex;align-items:center;gap:8px;margin-top:30px;background:var(--sky-deep);color:#fff;
+    font-weight:700;padding:13px 22px;border-radius:40px;font-size:.98rem;transition:transform .18s ease,background .18s ease}
+  .source-btn:hover{transform:translateY(-2px);background:#17456a;text-decoration:none}
+
+  /* pager */
+  .pager{max-width:760px;margin:46px auto 0;padding:0 28px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .pager a{display:flex;flex-direction:column;gap:4px;border:1px solid var(--line);background:#fff;border-radius:18px;
+    padding:18px 22px;transition:transform .18s ease,border-color .18s ease}
+  .pager a:hover{transform:translateY(-3px);border-color:var(--sun);text-decoration:none}
+  .pager a.next{text-align:right;align-items:flex-end}
+  .pager .lbl{font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--sun-deep);font-weight:700}
+  .pager .nm{font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;color:var(--ink)}
+  @media(max-width:560px){.pager{grid-template-columns:1fr}.pager a.next{text-align:left;align-items:flex-start}}
+
+  /* tiles */
+  .tiles-band{margin-top:72px;padding:64px 0 84px;background:var(--cream-2);border-top:1px solid var(--line)}
+  .tiles-band .head{max-width:60ch;margin-bottom:32px}
+  .tiles-band h2{font-size:clamp(1.6rem,3.4vw,2.3rem);margin-bottom:8px}
+  .tiles-band .head p{color:var(--ink-soft);font-size:1.08rem}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+  .tile{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px;transition:transform .18s ease,box-shadow .18s ease}
+  .tile:hover{transform:translateY(-4px);box-shadow:0 14px 26px rgba(30,92,138,.12);text-decoration:none}
+  .tile .tag{display:inline-block;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--sun-deep);background:#FFF1CF;padding:4px 10px;border-radius:30px}
+  .tile .nm{font-family:"Fraunces",serif;font-weight:600;font-size:1.18rem;color:var(--ink);margin:12px 0 4px}
+  .tile .ds{color:var(--ink-soft);font-size:.92rem}
+  .tile.active{border-color:var(--sun);box-shadow:0 0 0 3px rgba(255,194,51,.35);background:var(--cream)}
+  .tile.active .nm::after{content:" ·  you're here";font-family:"Hanken Grotesk";font-style:normal;font-weight:600;font-size:.78rem;color:var(--sun-deep);letter-spacing:0;text-transform:none}
+
+  /* footer */
+  footer{background:var(--ink);color:#C7D4DE;padding:56px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
+  footer .logo{height:40px;color:var(--cream)}
+  footer .ev{color:#9DB0BD;font-size:.92rem}
+  footer .ev a{color:var(--sun)}
+  .foot-base{border-top:1px solid #33454F;margin-top:34px;padding-top:22px;font-size:.84rem;color:#7E919E;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="Bike TC home">
+      <svg class="logo" viewBox="0 0 470 130" role="img" aria-label="Bike TC">
+        <text class="word" x="0" y="98" font-family="Fraunces" font-weight="900" font-size="104">Bik</text>
+        <circle class="ink" cx="222" cy="92" r="33"/><line class="ink" x1="194" y1="92" x2="250" y2="92"/><circle class="sun" cx="222" cy="92" r="6"/>
+        <path class="ink" d="M222 92 L258 46 L338 46 L360 92"/><path class="ink" d="M258 46 L292 92"/><line class="ink" x1="246" y1="44" x2="270" y2="44"/><circle class="sun" cx="292" cy="92" r="6"/>
+        <line class="ink sun-stroke" x1="338" y1="46" x2="338" y2="20"/><line class="ink sun-stroke" x1="312" y1="20" x2="364" y2="20"/>
+        <path class="ink" d="M387 70 A33 33 0 1 0 387 114"/><circle class="sun" cx="360" cy="92" r="6"/>
+      </svg>
+    </a>
+    <nav class="nav-links">
+      <a href="index.html#trails">Trails</a>
+      <a href="index.html#rides">Where to Ride</a>
+      <a href="index.html#etiquette">Etiquette &amp; Rules</a>
+      <a href="index.html#resources">City Resources</a>
+      <a href="index.html#game">The Game</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO (rendered by JS) -->
+<section class="t-hero">
+  <div class="sun-disc"></div>
+  <div class="wrap">
+    <div class="crumb"><a href="index.html#trails">← All greatest-hits trails</a></div>
+    <div class="t-hero-content">
+      <p class="eyebrow" id="h-cat">Trail guide</p>
+      <h1 id="h-name">Loading…</h1>
+      <p class="tagline" id="h-tag"></p>
+    </div>
+    <div class="stat-row wrap" id="h-stats" style="padding-left:0;padding-right:0"></div>
+  </div>
+  <svg class="skyline" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,110 L0,72 L70,72 L70,54 L96,54 L96,72 L150,72 L150,46 L168,46 L168,30 L182,30 L182,46 L200,46 L200,72
+      L250,72 L250,22 L262,8 L274,22 L274,72 L320,72 L320,44 L356,44 L356,72 L410,72 L410,34 L426,34 L426,22 L434,22
+      L434,34 L450,34 L450,72 L505,72 L505,50 L560,50 L560,72 L610,72 L610,16 L628,16 L628,6 L636,6 L636,16 L654,16
+      L654,72 L705,72 L705,40 L745,40 L745,72 L800,72 L800,55 L850,55 L850,72 L905,72 L905,28 L922,28 L922,18 L930,18
+      L930,28 L948,28 L948,72 L1000,72 L1000,48 L1052,48 L1052,72 L1108,72 L1108,36 L1150,36 L1150,72 L1205,72 L1205,54
+      L1260,54 L1260,72 L1315,72 L1315,42 L1360,42 L1360,72 L1410,72 L1410,60 L1440,60 L1440,110 Z"/>
+  </svg>
+</section>
+
+<!-- ARTICLE (rendered by JS) -->
+<article class="article" id="article"></article>
+
+<!-- PAGER -->
+<nav class="pager" id="pager" aria-label="Previous and next trail"></nav>
+
+<!-- TILES -->
+<section class="tiles-band">
+  <div class="wrap">
+    <div class="head">
+      <p class="eyebrow">Jump to another route</p>
+      <h2>All the greatest hits</h2>
+      <p>Pick any of the routes below — or use Previous / Next above to ride through them in order.</p>
+    </div>
+    <div class="tiles" id="tiles"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <a class="brand" href="index.html" aria-label="Bike TC home">
+        <svg class="logo" viewBox="0 0 470 130" role="img" aria-label="Bike TC">
+          <text class="word" x="0" y="98" font-family="Fraunces" font-weight="900" font-size="104">Bik</text>
+          <circle class="ink" cx="222" cy="92" r="33"/><line class="ink" x1="194" y1="92" x2="250" y2="92"/><circle class="sun" cx="222" cy="92" r="6"/>
+          <path class="ink" d="M222 92 L258 46 L338 46 L360 92"/><path class="ink" d="M258 46 L292 92"/><line class="ink" x1="246" y1="44" x2="270" y2="44"/><circle class="sun" cx="292" cy="92" r="6"/>
+          <line class="ink sun-stroke" x1="338" y1="46" x2="338" y2="20"/><line class="ink sun-stroke" x1="312" y1="20" x2="364" y2="20"/>
+          <path class="ink" d="M387 70 A33 33 0 1 0 387 114"/><circle class="sun" cx="360" cy="92" r="6"/>
+        </svg>
+      </a>
+      <p class="ev">A community biking resource brought to you by <a href="#">Everspring Health</a>.</p>
+    </div>
+    <div class="foot-base">
+      <span>bike.tc · Minneapolis &amp; Saint Paul, Minnesota</span>
+      <span>© <span id="yr"></span> Bike TC · Everyday biking in the Twin Cities</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ---------------------------------------------------------------
+   Trail data. To add a route: drop a new object in this array and
+   it appears automatically in the tiles, the prev/next cycle, and
+   (if you link to it) the homepage. slug must be URL-safe.
+----------------------------------------------------------------*/
+const TRAILS = [
+  {
+    slug:"midtown-greenway", cat:"Car-free commuter", name:"Midtown Greenway",
+    tag:"Car-free",
+    tagline:"South Minneapolis's bicycle freeway, sunk a full level below the streets.",
+    stats:[["Distance","~5.5 mi"],["Effort","Easy"],["Surface","Paved"],["Season","Year-round · plowed"]],
+    short:"The crosstown bicycle freeway — no cross-traffic, lit, plowed in winter.",
+    body:[
+      "The Greenway runs east–west across south Minneapolis in a former railroad trench, a full level below the street. That sunken corridor is the whole magic: no stop signs, no cross traffic, no waiting — just a continuous, lit, paved ribbon you can ride end to end without putting a foot down. It parallels Lake Street and is widely called the city's \u201Cbicycle freeway,\u201D complete with on/off ramps and signs counting down the distance to the next connection.",
+      "It's also the connective spine of the whole network. At its west end it ties into the Chain of Lakes by way of the Kenilworth corridor and the Cedar Lake Trail toward downtown and the western suburbs. At its east end it reaches the Mississippi River at West River Parkway. Near Hiawatha Avenue, the cable-stayed Martin Olav Sabo Bridge carries you safely over seven lanes of traffic and the light rail — lit up at night, it's a small landmark of its own.",
+      "Because it's plowed through the winter and never touches car traffic, the Greenway is the route locals trust in every season — and the easiest possible way to learn to ride across the city."
+    ],
+    highlights:[
+      "The sunken trench — separated one-way bike lanes plus a parallel walking path",
+      "Murals on the century-old historic bridge underpasses",
+      "The Martin Olav Sabo Bridge soaring over Hiawatha Avenue",
+      "Direct links to the Chain of Lakes, Cedar Lake Trail, and the river"
+    ],
+    practical:[
+      ["Route","Chain of Lakes area east to West River Parkway (~27th St)"],
+      ["Connects to","Cedar Lake Trail, Kenilworth Trail, West River Parkway, Hiawatha/LRT trails"],
+      ["Access","Street entry points at most cross-streets along Lake Street"],
+      ["Transit","Several METRO bus and light-rail connections"]
+    ],
+    tip:"Heading east, the stretch past Hiawatha and over the Sabo Bridge is the most scenic — and the bridge is worth a pause at dusk.",
+    sourceUrl:"https://midtowngreenway.org/", sourceLabel:"Midtown Greenway Coalition"
+  },
+  {
+    slug:"grand-rounds", cat:"Iconic loop", name:"Grand Rounds Scenic Byway",
+    tag:"Iconic loop",
+    tagline:"A 50-mile necklace of parks, lakes, and riverfront circling the whole city.",
+    stats:[["Distance","~50 mi loop"],["Effort","Moderate · pick a segment"],["Surface","Paved"],["Season","Year-round"]],
+    short:"The historic park loop that touches every quadrant of Minneapolis.",
+    body:[
+      "The Grand Rounds is one of the oldest and most celebrated urban park systems in the country — a near-continuous loop of parkways and trails touching every quadrant of Minneapolis, and a designated National Scenic Byway. You don't have to ride the whole thing: it's built from distinct districts, each a fine ride on its own.",
+      "String together the Chain of Lakes, the Mississippi River gorge, Minnehaha Falls, Theodore Wirth Park, and the downtown riverfront and you've seen the best of the city in a single, mostly car-separated loop. Ride a quarter of it on a weeknight, or chase the entire circuit on a long summer Saturday.",
+      "It connects to nearly everything else on this list, which makes it the backbone for building your own longer routes."
+    ],
+    highlights:[
+      "Chain of Lakes district — Bde Maka Ska, Harriet, Isles, Cedar",
+      "The Mississippi River gorge and the Stone Arch Bridge",
+      "Minnehaha Falls",
+      "Theodore Wirth Park and the leafy northern parkways"
+    ],
+    practical:[
+      ["Connects to","Essentially every trail in Minneapolis"],
+      ["Parking","Lots at the lakes, Minnehaha Park, and Theodore Wirth Park"],
+      ["Heads up","Parkways get busy on summer weekends — go early"]
+    ],
+    tip:"New to it? Start with the Chain of Lakes or the riverfront district — both are scenic, flat, and easy to bail out of.",
+    sourceUrl:"https://www.minneapolisparks.org/", sourceLabel:"Minneapolis Park & Recreation Board"
+  },
+  {
+    slug:"chain-of-lakes", cat:"Scenic & flat", name:"Chain of Lakes",
+    tag:"Scenic & flat",
+    tagline:"Four connected lakes, beaches, a bandshell, and skyline reflections.",
+    stats:[["Distance","~10+ mi linked"],["Effort","Easy"],["Surface","Paved · split paths"],["Season","Year-round"]],
+    short:"The postcard ride — flat, loopable, and endlessly scenic.",
+    body:[
+      "The Chain of Lakes is the postcard ride: paved loops connecting Bde Maka Ska, Lake of the Isles, Lake Harriet, and Cedar Lake, mostly with separate lanes for people biking and walking. It's flat, beginner-friendly, and endlessly loopable — do a single lake or string all four together.",
+      "Along the way you'll find swimming beaches, the Lake Harriet Bandshell with free concerts all summer, a rose garden, canoe launches, and clear views of the downtown skyline across the water. It links straight into the Midtown Greenway and the Grand Rounds, so it's easy to extend into a bigger day."
+    ],
+    highlights:[
+      "Lake Harriet Bandshell — free summer concerts",
+      "Swimming beaches at Bde Maka Ska and Lake Harriet",
+      "Lake of the Isles' quiet, tree-lined loop",
+      "Skyline views and a direct link to the Greenway"
+    ],
+    practical:[
+      ["Connects to","Midtown Greenway, Grand Rounds, Cedar Lake Trail"],
+      ["Parking","Lot and street parking at each lake"],
+      ["Heads up","Paths get narrow and crowded on nice days — keep right"]
+    ],
+    tip:"The lakes share tight paths on busy days — keep right, pass on the left, and call it out before you go around someone.",
+    sourceUrl:"https://www.minneapolisparks.org/", sourceLabel:"Minneapolis Park & Recreation Board"
+  },
+  {
+    slug:"cedar-lake-trail", cat:"Commuter", name:"Cedar Lake & North Cedar Lake Trail",
+    tag:"Commuter",
+    tagline:"America's first \u201Cbike freeway\u201D — skyscrapers to meadows in minutes.",
+    stats:[["Route","Downtown → Hopkins"],["Effort","Easy"],["Surface","Paved"],["Season","Year-round"]],
+    short:"Grade-separated lanes straight out of downtown, heading west.",
+    body:[
+      "When it was built, the Cedar Lake Trail pioneered the \u201Cbicycle freeway\u201D idea in the United States — dedicated, grade-separated lanes for bike travel, kept clear of cars. It runs from the edge of downtown Minneapolis out to Cedar Lake and then, as the North Cedar Lake Trail, continues west toward Hopkins and connections deeper into the southwest suburbs.",
+      "The payoff is the transition: you start among downtown towers and within a few miles you're rolling past lakes and green corridors. It links to the Midtown Greenway via the Kenilworth corridor, making it part of the city's connected core — and a fast, satisfying there-and-back if you don't want a full loop."
+    ],
+    highlights:[
+      "Grade-separated lanes straight out of downtown",
+      "A quick connection to Cedar Lake and the Chain of Lakes",
+      "Continues west toward Hopkins and the southwest suburbs",
+      "Links to the Midtown Greenway via Kenilworth"
+    ],
+    practical:[
+      ["Connects to","Midtown Greenway, Kenilworth Trail, North Cedar Lake / SW LRT trails"],
+      ["Parking","Downtown ramps; trailhead access out in Hopkins"],
+      ["Best for","Fast, scenic, car-free commuting west"]
+    ],
+    tip:"Riding out of downtown, it's the quickest car-free way west — great as an out-and-back when you're short on time.",
+    sourceUrl:"https://www.minneapolisparks.org/", sourceLabel:"Minneapolis Park & Recreation Board"
+  },
+  {
+    slug:"mississippi-gorge", cat:"Riverside", name:"Mississippi River Gorge",
+    tag:"Riverside",
+    tagline:"The only true gorge on the Mississippi — Stone Arch Bridge to Minnehaha Falls.",
+    stats:[["Distance","~6 mi one-way"],["Effort","Easy–Moderate"],["Surface","Paved"],["Season","Year-round"]],
+    short:"Bluffs, woods, and water linking two of the city's signature stops.",
+    body:[
+      "West River Parkway follows the Mississippi through the only true gorge on the river's entire length. It links two of the city's signature stops — the car-free Stone Arch Bridge beside St. Anthony Falls downtown, and Minnehaha Falls a few miles south — with bluffs, woods, and water the whole way.",
+      "It's part of the Grand Rounds, so you can loop it with the east bank along East River Parkway past the University, or continue south toward Fort Snelling and the river confluence. For a single ride that feels like the heart of the city, it's hard to beat."
+    ],
+    highlights:[
+      "The Stone Arch Bridge and St. Anthony Falls",
+      "Gorge bluffs and river overlooks",
+      "Minnehaha Falls at the south end",
+      "Connections to Fort Snelling and the east-bank parkways"
+    ],
+    practical:[
+      ["Connects to","Grand Rounds, Stone Arch Bridge, Minnehaha Park, East River Parkway"],
+      ["Parking","Mill District ramps downtown; Minnehaha Park lot"],
+      ["Best for","River views and landmark-hopping"]
+    ],
+    tip:"Ride north-to-south and reward yourself at Minnehaha — there's food at the park before you turn back.",
+    sourceUrl:"https://www.minneapolisparks.org/", sourceLabel:"Minneapolis Park & Recreation Board"
+  },
+  {
+    slug:"saint-paul-river", cat:"Saint Paul", name:"Mississippi River Blvd & Sam Morgan Trail",
+    tag:"Saint Paul",
+    tagline:"River-bluff cruising from Highland Park to the downtown riverfront.",
+    stats:[["Distance","~7+ mi"],["Effort","Easy"],["Surface","Paved"],["Season","Year-round"]],
+    short:"Saint Paul's signature ride, hugging the river bluff.",
+    body:[
+      "Saint Paul's signature ride hugs the river. Mississippi River Boulevard runs along the bluff from Highland Park north toward Summit Avenue and the city, with long stretches of separated path and constant water views — a favorite for evening and sunset cruises.",
+      "Down at river level, the Sam Morgan Regional Trail follows Shepard Road, linking the downtown riverfront to Crosby Farm Regional Park, the largest natural park in the city. Together they make an easy, scenic loop on the quieter eastern half of the metro, with bridges across to the Minneapolis gorge when you want to connect the two."
+    ],
+    highlights:[
+      "The Mississippi River Boulevard bluff path",
+      "Sam Morgan Regional Trail along the downtown riverfront",
+      "Crosby Farm Regional Park — floodplain forest and river access",
+      "Bridges across to the Minneapolis gorge"
+    ],
+    practical:[
+      ["Connects to","Crosby Farm, Sam Morgan Trail, the Minneapolis gorge via river bridges"],
+      ["Parking","Highland Park and Crosby Farm lots"],
+      ["Best for","Sunset rides on the Saint Paul side"]
+    ],
+    tip:"Time the bluff stretch for golden hour — the west-facing views over the river are the whole point.",
+    sourceUrl:"https://www.stpaul.gov/", sourceLabel:"City of Saint Paul"
+  },
+  {
+    slug:"gateway-state-trail", cat:"Escape the city", name:"Gateway State Trail",
+    tag:"Escape the city",
+    tagline:"An 18-mile rail-trail from the State Capitol out to open country.",
+    stats:[["Distance","18.3 mi"],["Effort","Easy · level"],["Surface","Paved"],["Season","West end plowed"]],
+    short:"A flat rail-trail that trades the city for wetlands and prairie fast.",
+    body:[
+      "Built on a former Soo Line railroad grade, the Gateway runs 18 miles from near the State Capitol in Saint Paul northeast to Pine Point Regional Park, just outside Stillwater. Because it's an old rail bed it stays flat and easy, and it transforms quickly from urban corridor to wetlands, lakes, forest, and prairie — surprisingly rural for something that starts in the city.",
+      "At its far end it meets the Brown's Creek State Trail, which carries you the final few miles down to the St. Croix River and the riverside town of Stillwater. It also connects to the Bruce Vento Regional Trail and the Phalen-Keller park trails, so there are plenty of ways to build a longer day out of it."
+    ],
+    highlights:[
+      "A true urban-to-rural transition in under an hour",
+      "The link to Brown's Creek Trail and downtown Stillwater",
+      "Wetlands, lakes, and prairie through Washington County",
+      "Connections to the Bruce Vento Trail and Phalen-Keller parks"
+    ],
+    practical:[
+      ["South trailhead","Cayuga Park (198 Cayuga St), near the Capitol"],
+      ["Connects to","Brown's Creek State Trail, Bruce Vento Regional Trail, Phalen-Keller"],
+      ["Parking","Cayuga Park; mid-trail lot at 55th St (Pine Springs); Pine Point Park"],
+      ["Winter","West end (Cayuga → Jamaca Ave) is plowed; east end is not maintained"]
+    ],
+    tip:"For the prettiest miles, start at the Pine Springs (55th St) lot and ride the rural eastern half toward Stillwater.",
+    sourceUrl:"https://www.dnr.state.mn.us/state_trails/gateway/index.html", sourceLabel:"Minnesota DNR"
+  },
+  {
+    slug:"beyond-the-metro", cat:"Day trips & touring", name:"Beyond the Metro",
+    tag:"Go further",
+    tagline:"When you're ready to ride out of town for the day.",
+    stats:[["Distance","Half-day → multi-day"],["Effort","Varies"],["Surface","Mostly paved rail-trails"],["Season","Spring–fall"]],
+    short:"The classic rail-trails worth a day trip from the cities.",
+    body:[
+      "Once the in-town trails feel familiar, the metro becomes a launch pad for some of the best rail-trails in the Midwest. Most are flat, paved, and connect to the network you already know — so you can ride out from the city, or drive out and start fresh.",
+      "Here are the classics worth a day, or a weekend. Pack water, a basic repair kit, and somewhere good to stop for lunch — because that's still the whole idea."
+    ],
+    highlights:[
+      "Brown's Creek State Trail — picks up where the Gateway ends and drops into riverside Stillwater",
+      "Luce Line State Trail — west from the suburbs through farm country toward Hutchinson",
+      "Dakota Rail Regional Trail — along Lake Minnetonka from Wayzata westward",
+      "Bruce Vento Regional Trail — north from Lowertown Saint Paul through the east metro",
+      "Cannon Valley Trail — a gorgeous downstate day trip from Cannon Falls to Red Wing",
+      "Mississippi River Trail (USBR 45) — the long-haul route that follows the river for hundreds of miles"
+    ],
+    practical:[
+      ["Connects to","Several start from or link into the metro trail network"],
+      ["Best for","Adventures beyond the city limits"],
+      ["Bring","Water, a repair kit, and a lunch destination"]
+    ],
+    tip:"Mix and match: the Gateway plus Brown's Creek into Stillwater makes a perfect first \u201Cride out of town\u201D — with a reward waiting at the end.",
+    sourceUrl:"https://www.exploreminnesota.com/outdoors/biking/best-paved-bike-trails", sourceLabel:"Explore Minnesota"
+  }
+];
+
+/* ---- render ---- */
+const wheel = '<svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#F2A01E" stroke-width="2.4"/><circle cx="12" cy="12" r="2.4" fill="#FFC233"/></svg>';
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+function getIndex(){
+  const slug = new URLSearchParams(location.search).get('t');
+  const i = TRAILS.findIndex(t => t.slug === slug);
+  return i >= 0 ? i : 0;
+}
+
+function render(){
+  const i = getIndex();
+  const t = TRAILS[i];
+  document.title = t.name + " — Bike TC";
+
+  document.getElementById('h-cat').textContent = t.cat;
+  document.getElementById('h-name').textContent = t.name;
+  document.getElementById('h-tag').textContent = t.tagline;
+  document.getElementById('h-stats').innerHTML =
+    t.stats.map(s => `<span class="chip">${esc(s[0])}: <b>${esc(s[1])}</b></span>`).join('');
+
+  const body = t.body.map((p,idx) =>
+    `<p${idx===0?' class="lede"':''}>${esc(p)}</p>`).join('');
+  const highs = `<h2>What you'll see</h2><ul class="highlights">` +
+    t.highlights.map(h => `<li>${wheel}<span>${esc(h)}</span></li>`).join('') + `</ul>`;
+  const prac = `<h2>Good to know</h2><div class="practical">` +
+    t.practical.map(r => `<div class="row"><div class="k">${esc(r[0])}</div><div class="v">${esc(r[1])}</div></div>`).join('') +
+    `</div>`;
+  const callout = `<div class="callout"><b>Local tip:</b> ${esc(t.tip)}</div>`;
+  const source = `<a class="source-btn" href="${t.sourceUrl}" target="_blank" rel="noopener">Official info &amp; maps · ${esc(t.sourceLabel)} ↗</a>`;
+  document.getElementById('article').innerHTML = body + highs + prac + callout + source;
+
+  // pager (wraps around)
+  const prev = TRAILS[(i - 1 + TRAILS.length) % TRAILS.length];
+  const next = TRAILS[(i + 1) % TRAILS.length];
+  document.getElementById('pager').innerHTML =
+    `<a class="prev" href="?t=${prev.slug}"><span class="lbl">← Previous</span><span class="nm">${esc(prev.name)}</span></a>` +
+    `<a class="next" href="?t=${next.slug}"><span class="lbl">Next →</span><span class="nm">${esc(next.name)}</span></a>`;
+
+  // tiles
+  document.getElementById('tiles').innerHTML = TRAILS.map((x,idx) =>
+    `<a class="tile${idx===i?' active':''}" href="?t=${x.slug}">
+       <span class="tag">${esc(x.tag)}</span>
+       <div class="nm">${esc(x.name)}</div>
+       <div class="ds">${esc(x.short)}</div>
+     </a>`).join('');
+
+  window.scrollTo(0,0);
+}
+
+document.getElementById('yr').textContent = new Date().getFullYear();
+render();
+</script>
+</body>
+</html>

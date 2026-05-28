@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bike TC — Everyday biking in the Twin Cities</title>
+<meta name="description" content="A friendly resource for everyday biking in Minneapolis & Saint Paul: trails, etiquette, rules of the road, city resources, and good places to ride to. Brought to you by Everspring Health.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF8EC;
+    --cream-2:#FBEED6;
+    --ink:#243441;
+    --ink-soft:#4A5C68;
+    --sky:#3F8FCB;
+    --sky-deep:#1E5C8A;
+    --sky-soft:#C7E6F8;
+    --sun:#FFC233;
+    --sun-deep:#F2A01E;
+    --coral:#FF8A5B;
+    --line:#EADFC6;
+    --shadow:24px 24px 0 rgba(30,92,138,.07);
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Hanken Grotesk",sans-serif;
+    color:var(--ink);
+    background:var(--cream);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3{font-family:"Fraunces",serif;line-height:1.05;font-weight:900;letter-spacing:-.01em}
+  a{color:var(--sky-deep);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+  .eyebrow{
+    font-family:"Fraunces",serif;font-style:italic;font-weight:500;
+    color:var(--sun-deep);font-size:1.05rem;letter-spacing:.01em;
+  }
+
+  /* ---------- LOGO ---------- */
+  .logo{display:block;height:100%}
+  .logo .ink{stroke:currentColor;fill:none;stroke-width:6.5;stroke-linecap:round;stroke-linejoin:round}
+  .logo .word{fill:currentColor;stroke:none}
+  .logo .sun{fill:var(--sun);stroke:none}
+  .logo .sun-stroke{stroke:var(--sun);fill:none;stroke-width:6.5;stroke-linecap:round}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,248,236,.88);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center;gap:14px;color:var(--ink)}
+  .brand .logo{height:38px;width:auto}
+  .nav-links{display:flex;gap:30px;align-items:center}
+  .nav-links a{color:var(--ink);font-weight:600;font-size:.96rem}
+  .nav-links a:hover{color:var(--sun-deep);text-decoration:none}
+  .nav-tag{font-size:.78rem;color:var(--ink-soft);font-weight:500;border-left:1px solid var(--line);padding-left:18px}
+  .nav-tag b{color:var(--sky-deep)}
+  .menu-btn{display:none}
+  @media(max-width:860px){
+    .nav-links{display:none}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{position:relative;overflow:hidden;background:linear-gradient(180deg,#16486E 0%,var(--sky-deep) 22%,var(--sky) 52%,#F6CB8E 82%,var(--sun) 100%)}
+  .hero .sun-disc{
+    position:absolute;left:50%;bottom:42%;transform:translateX(-50%);
+    width:230px;height:230px;border-radius:50%;
+    background:radial-gradient(circle,#FFE9A8 0%,var(--sun) 55%,rgba(255,194,51,0) 72%);
+    z-index:1;
+  }
+  .hero-content{position:relative;z-index:3;text-align:center;padding:84px 28px 0}
+  .hero .logo{height:120px;width:auto;margin:0 auto;color:var(--cream);
+    filter:drop-shadow(0 4px 14px rgba(10,40,65,.35))}
+  .hero h1{color:var(--cream);font-size:clamp(2.4rem,6.4vw,4.6rem);margin:26px auto 0;max-width:13ch;
+    text-shadow:0 3px 18px rgba(10,40,65,.35)}
+  .hero h1 em{font-style:italic;font-weight:500;color:var(--sun)}
+  .hero p.sub{color:#EAF6FF;font-size:clamp(1.05rem,2.2vw,1.3rem);max-width:46ch;margin:20px auto 0;font-weight:500}
+  .hero-cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:34px auto 0;position:relative;z-index:3}
+  .btn{
+    display:inline-block;font-weight:700;font-size:1rem;padding:14px 26px;border-radius:40px;
+    transition:transform .18s ease, box-shadow .18s ease;border:2px solid transparent;
+  }
+  .btn-sun{background:var(--sun);color:#3a2400}
+  .btn-sun:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(20,40,60,.28);text-decoration:none}
+  .btn-ghost{background:transparent;color:var(--cream);border-color:rgba(255,255,255,.6)}
+  .btn-ghost:hover{background:rgba(255,255,255,.14);text-decoration:none}
+  /* skyline */
+  .skyline{display:block;width:100%;height:auto;position:relative;z-index:2;margin-top:48px}
+  .skyline path{fill:#16314A}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- SECTION SHELL ---------- */
+  section.band{padding:84px 0}
+  .band.alt{background:var(--cream-2)}
+  .sec-head{max-width:62ch}
+  .sec-head h2{font-size:clamp(1.9rem,4vw,2.9rem);margin:8px 0 14px}
+  .sec-head p{color:var(--ink-soft);font-size:1.12rem}
+
+  /* ethos */
+  .ethos{background:var(--sky-deep);color:var(--cream)}
+  .ethos .quote{font-family:"Fraunces",serif;font-weight:400;font-style:italic;
+    font-size:clamp(1.5rem,3.4vw,2.4rem);line-height:1.3;max-width:20ch}
+  .ethos .quote b{font-style:normal;font-weight:900;color:var(--sun)}
+  .ethos p{margin-top:24px;max-width:54ch;color:#D7EBF7;font-size:1.1rem}
+  .ethos .grid2{display:grid;grid-template-columns:1.1fr 1fr;gap:54px;align-items:center}
+  @media(max-width:780px){.ethos .grid2{grid-template-columns:1fr;gap:30px}}
+
+  /* cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;margin-top:42px}
+  .card{
+    background:var(--cream);border:1px solid var(--line);border-radius:20px;padding:26px;
+    transition:transform .2s ease, box-shadow .2s ease;position:relative;
+  }
+  .band.alt .card{background:#fff}
+  .card:hover{transform:translateY(-5px);box-shadow:0 16px 30px rgba(30,92,138,.12)}
+  .card .tag{display:inline-block;font-size:.74rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--sun-deep);background:#FFF1CF;padding:5px 11px;border-radius:30px;margin-bottom:14px}
+  .card h3{font-size:1.32rem;margin-bottom:8px;font-weight:600}
+  .card p{color:var(--ink-soft);font-size:.98rem}
+  .card .meta{margin-top:14px;font-size:.86rem;font-weight:600;color:var(--sky-deep);display:flex;gap:8px;align-items:center}
+  .card .meta::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--sun)}
+  a.card{color:inherit;text-decoration:none;display:block}
+  a.card:hover{text-decoration:none}
+  .card .go{display:inline-block;margin-top:16px;font-weight:700;font-size:.9rem;color:var(--sun-deep);
+    transition:transform .18s ease}
+  a.card:hover .go{transform:translateX(4px)}
+
+  /* etiquette */
+  .rules{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:42px}
+  @media(max-width:780px){.rules{grid-template-columns:1fr;gap:34px}}
+  .rules h3{font-size:1.4rem;margin-bottom:18px;display:flex;align-items:center;gap:12px}
+  .rules h3 .ic{width:34px;height:34px;flex:none}
+  .rule{padding:16px 0;border-top:1px solid var(--line);display:flex;gap:14px}
+  .rule:first-of-type{border-top:none}
+  .rule .n{font-family:"Fraunces",serif;font-weight:900;color:var(--sun-deep);font-size:1.2rem;line-height:1.3;flex:none}
+  .rule b{color:var(--ink)}
+  .rule span{color:var(--ink-soft);font-size:.98rem}
+  .lawnote{margin-top:26px;background:#FFF1CF;border-radius:16px;padding:18px 22px;font-size:.92rem;color:#6a4d12}
+  .lawnote b{color:#4d3705}
+
+  /* resources */
+  .links{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-top:42px}
+  .lnk{display:block;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 22px;
+    transition:border-color .18s ease, transform .18s ease}
+  .lnk:hover{border-color:var(--sun);transform:translateY(-3px);text-decoration:none}
+  .lnk .t{font-weight:700;color:var(--ink);font-size:1.05rem;display:flex;justify-content:space-between;align-items:center}
+  .lnk .t .arr{color:var(--sun-deep);transition:transform .18s ease}
+  .lnk:hover .t .arr{transform:translate(3px,-3px)}
+  .lnk .d{color:var(--ink-soft);font-size:.92rem;margin-top:5px}
+
+  /* game */
+  .game{background:linear-gradient(135deg,var(--sun) 0%,var(--coral) 100%);color:#3a2400;border-radius:28px;
+    padding:56px;margin-top:8px;position:relative;overflow:hidden}
+  .game::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;
+    background:rgba(255,255,255,.18)}
+  .game h2{font-size:clamp(2rem,4.5vw,3rem);max-width:18ch;position:relative}
+  .game p{max-width:56ch;margin-top:18px;font-size:1.12rem;font-weight:500;position:relative}
+  .steps{display:flex;gap:26px;flex-wrap:wrap;margin-top:34px;position:relative}
+  .step{flex:1;min-width:180px}
+  .step .num{font-family:"Fraunces",serif;font-weight:900;font-size:2.6rem;line-height:1;opacity:.55}
+  .step b{display:block;margin-top:6px;font-size:1.08rem}
+  .step span{font-size:.94rem;color:#5a3a14}
+  .hashtag{display:inline-block;margin-top:34px;background:#3a2400;color:var(--sun);font-weight:700;
+    padding:12px 22px;border-radius:40px;font-size:1.05rem;position:relative}
+  @media(max-width:680px){.game{padding:36px 28px}}
+
+  /* footer */
+  footer{background:var(--ink);color:#C7D4DE;padding:64px 0 40px}
+  .foot-grid{display:flex;justify-content:space-between;align-items:flex-start;gap:40px;flex-wrap:wrap}
+  footer .logo{height:42px;color:var(--cream);margin-bottom:18px}
+  footer .ev{max-width:38ch;color:#9DB0BD;font-size:.96rem}
+  footer .ev a{color:var(--sun)}
+  .foot-links{display:flex;gap:46px;flex-wrap:wrap}
+  .foot-links div b{display:block;color:var(--cream);font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:12px}
+  .foot-links a{display:block;color:#A9BBC7;font-size:.95rem;padding:3px 0}
+  .foot-links a:hover{color:var(--sun)}
+  .foot-base{border-top:1px solid #33454F;margin-top:46px;padding-top:24px;font-size:.84rem;color:#7E919E;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#top" aria-label="Bike TC home">
+      <!-- LOGO -->
+      <svg class="logo" viewBox="0 0 470 130" role="img" aria-label="Bike TC">
+        <text class="word" x="0" y="98" font-family="Fraunces" font-weight="900" font-size="104">Bik</text>
+        <!-- rear wheel = e -->
+        <circle class="ink" cx="222" cy="92" r="33"/>
+        <line class="ink" x1="194" y1="92" x2="250" y2="92"/>
+        <circle class="sun" cx="222" cy="92" r="6"/>
+        <!-- frame -->
+        <path class="ink" d="M222 92 L258 46 L338 46 L360 92"/>
+        <path class="ink" d="M258 46 L292 92"/>
+        <!-- seat -->
+        <line class="ink" x1="246" y1="44" x2="270" y2="44"/>
+        <!-- crank -->
+        <circle class="sun" cx="292" cy="92" r="6"/>
+        <!-- handlebar = T (stem up from head tube, then crossbar) -->
+        <line class="ink sun-stroke" x1="338" y1="46" x2="338" y2="20"/>
+        <line class="ink sun-stroke" x1="312" y1="20" x2="364" y2="20"/>
+        <!-- front wheel = c (open arc facing right) -->
+        <path class="ink" d="M387 70 A33 33 0 1 0 387 114"/>
+        <circle class="sun" cx="360" cy="92" r="6"/>
+      </svg>
+    </a>
+    <nav class="nav-links">
+      <a href="#trails">Trails</a>
+      <a href="#rides">Where to Ride</a>
+      <a href="#etiquette">Etiquette &amp; Rules</a>
+      <a href="#resources">City Resources</a>
+      <a href="#game">The Game</a>
+      <span class="nav-tag">brought to you by<br><b>Everspring Health</b></span>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<a id="top"></a>
+<section class="hero">
+  <div class="sun-disc"></div>
+  <div class="hero-content">
+    <svg class="logo reveal" viewBox="0 0 470 130" role="img" aria-label="Bike TC" style="transition-delay:.05s">
+      <text class="word" x="0" y="98" font-family="Fraunces" font-weight="900" font-size="104">Bik</text>
+      <circle class="ink" cx="222" cy="92" r="33"/>
+      <line class="ink" x1="194" y1="92" x2="250" y2="92"/>
+      <circle class="sun" cx="222" cy="92" r="6"/>
+      <path class="ink" d="M222 92 L258 46 L338 46 L360 92"/>
+      <path class="ink" d="M258 46 L292 92"/>
+      <line class="ink" x1="246" y1="44" x2="270" y2="44"/>
+      <circle class="sun" cx="292" cy="92" r="6"/>
+      <line class="ink sun-stroke" x1="338" y1="46" x2="338" y2="20"/>
+      <line class="ink sun-stroke" x1="312" y1="20" x2="364" y2="20"/>
+      <path class="ink" d="M387 70 A33 33 0 1 0 387 114"/>
+      <circle class="sun" cx="360" cy="92" r="6"/>
+    </svg>
+    <h1 class="reveal" style="transition-delay:.18s">Everyday biking in the <em>Twin Cities.</em></h1>
+    <p class="sub reveal" style="transition-delay:.3s">Not about the miles. About going somewhere good — a waterfall, a bandshell, a bridge over the river — on two wheels, on a sunny morning.</p>
+    <div class="hero-cta reveal" style="transition-delay:.42s">
+      <a class="btn btn-sun" href="#rides">Find a ride →</a>
+      <a class="btn btn-ghost" href="#game">Play Bike Twin Cities</a>
+    </div>
+  </div>
+  <!-- stylized skyline silhouette -->
+  <svg class="skyline" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,150 L0,96 L70,96 L70,70 L96,70 L96,96 L150,96 L150,60 L168,60 L168,40 L182,40 L182,60 L200,60 L200,96
+      L250,96 L250,30 L262,12 L274,30 L274,96 L320,96 L320,58 L356,58 L356,96 L410,96 L410,44 L426,44 L426,30 L434,30
+      L434,44 L450,44 L450,96 L505,96 L505,66 L560,66 L560,96 L610,96 L610,20 L628,20 L628,8 L636,8 L636,20 L654,20
+      L654,96 L705,96 L705,52 L745,52 L745,96 L800,96 L800,72 L850,72 L850,96 L905,96 L905,38 L922,38 L922,24 L930,24
+      L930,38 L948,38 L948,96 L1000,96 L1000,62 L1052,62 L1052,96 L1108,96 L1108,46 L1150,46 L1150,96 L1205,96 L1205,70
+      L1260,70 L1260,96 L1315,96 L1315,56 L1360,56 L1360,96 L1410,96 L1410,80 L1440,80 L1440,150 Z"/>
+  </svg>
+</section>
+
+<!-- ============ ETHOS ============ -->
+<section class="band ethos">
+  <div class="wrap grid2">
+    <div class="reveal">
+      <p class="eyebrow" style="color:var(--sun)">The whole idea</p>
+      <div class="quote">Bike to <b>somewhere interesting</b> — not just to work, and not just for the miles.</div>
+    </div>
+    <div class="reveal" style="transition-delay:.12s">
+      <p>Bike Twin Cities started as a friendly scavenger hunt: pick a destination worth the trip, ride there, and snap a photo of you and your bike when you arrive. The win isn't your average speed or your weekly mileage — it's that you got on the bike and went somewhere good.</p>
+      <p>This is a small, growing resource for doing exactly that around Minneapolis and Saint Paul. Where to ride, how to share the road kindly, who to ask for help, and a few places absolutely worth pedaling to.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TRAILS ============ -->
+<section class="band" id="trails">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Paths &amp; trails</p>
+      <h2>The greatest hits of a great biking city</h2>
+      <p>The Twin Cities is regularly ranked among the best biking metros in the country, with hundreds of miles of paved, mostly car-free trails. Here's where to start.</p>
+    </div>
+    <div class="cards">
+      <a class="card reveal" href="trail.html?t=midtown-greenway"><span class="tag">Car-free</span><h3>Midtown Greenway</h3><p>A sunken former rail corridor that runs across south Minneapolis like a bicycle highway — lit, plowed in winter, and free of cross-traffic. Links the Chain of Lakes on the west to the Mississippi River on the east.</p><div class="meta">~5.5 miles · easy · all seasons</div><span class="go">Explore the route →</span></a>
+      <a class="card reveal" style="transition-delay:.05s" href="trail.html?t=grand-rounds"><span class="tag">Iconic loop</span><h3>Grand Rounds Scenic Byway</h3><p>A National Scenic Byway stringing together Minneapolis's lakes, the river gorge, Theodore Wirth Park and more. Ride a quiet segment or chase the whole loop — it touches every quadrant of the city.</p><div class="meta">~50 miles full loop · pick your distance</div><span class="go">Explore the route →</span></a>
+      <a class="card reveal" style="transition-delay:.1s" href="trail.html?t=chain-of-lakes"><span class="tag">Scenic &amp; flat</span><h3>Chain of Lakes</h3><p>Connected paved paths around Bde Maka Ska, Lake of the Isles, Lake Harriet and Cedar Lake. Beaches, the Lake Harriet bandshell, and skyline reflections. The easygoing local classic.</p><div class="meta">~10+ miles linked · beginner-friendly</div><span class="go">Explore the route →</span></a>
+      <a class="card reveal" href="trail.html?t=cedar-lake-trail"><span class="tag">Commuter</span><h3>Cedar Lake &amp; North Cedar Lake Trail</h3><p>A rare grade-separated trail straight out of downtown Minneapolis heading west. Go from skyscrapers to meadows fast, continuing all the way to Hopkins and Excelsior.</p><div class="meta">downtown → Excelsior · ~16 miles one-way</div><span class="go">Explore the route →</span></a>
+      <a class="card reveal" style="transition-delay:.05s" href="trail.html?t=mississippi-gorge"><span class="tag">Riverside</span><h3>Mississippi River Gorge</h3><p>West River Parkway threads the only true gorge on the entire Mississippi, linking the Stone Arch Bridge to Minnehaha Falls. Bluffs, woods, and water the whole way.</p><div class="meta">Stone Arch ↔ Minnehaha · scenic</div><span class="go">Explore the route →</span></a>
+      <a class="card reveal" style="transition-delay:.1s" href="trail.html?t=saint-paul-river"><span class="tag">Saint Paul</span><h3>Mississippi River Blvd &amp; Sam Morgan Trail</h3><p>Saint Paul's signature ride hugs the river bluffs from Highland Park up toward downtown — a favorite for sunset cruises. The Sam Morgan Regional Trail carries it along the riverfront.</p><div class="meta">Highland Park → downtown St. Paul</div><span class="go">Explore the route →</span></a>
+      <a class="card reveal" href="trail.html?t=gateway-state-trail"><span class="tag">Escape the city</span><h3>Gateway State Trail</h3><p>A smooth paved rail-trail that starts near downtown Saint Paul and runs northeast into rolling countryside and Pine Point Park. The easiest way to ride out of town without a car.</p><div class="meta">~18 miles · paved · rail-trail</div><span class="go">Explore the route →</span></a>
+      <a class="card reveal" style="transition-delay:.05s" href="trail.html?t=beyond-the-metro"><span class="tag">Go further</span><h3>Beyond the metro</h3><p>When you're ready for a day trip: the Luce Line and Dakota Rail trails head west, the Bruce Vento Trail connects through the east metro, and the Mississippi River Trail will carry you for hundreds of miles in either direction.</p><div class="meta">day trips &amp; touring</div><span class="go">Explore the route →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHERE TO RIDE ============ -->
+<section class="band alt" id="rides">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Destinations</p>
+      <h2>Places worth pedaling to</h2>
+      <p>The heart of Bike Twin Cities: not a workout, a reason. Here are landmarks that make a great turn-around point — and a great photo when you get there.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal"><span class="tag">The signature shot</span><h3>Stone Arch Bridge</h3><p>A car-free former railroad bridge curving over St. Anthony Falls, with the downtown skyline behind you and the only waterfall on the Mississippi below. The definitive Twin Cities bike photo.</p><div class="meta">Downtown Minneapolis</div></div>
+      <div class="card reveal" style="transition-delay:.05s"><span class="tag">Waterfall</span><h3>Minnehaha Falls</h3><p>A 53-foot waterfall tucked into a regional park, reachable entirely by river trail. Refuel at the park concessions and ride the gorge home.</p><div class="meta">Minnehaha Regional Park</div></div>
+      <div class="card reveal" style="transition-delay:.1s"><span class="tag">Music &amp; roses</span><h3>Lake Harriet Bandshell</h3><p>Free summer concerts right on the water, with a rose garden a short ride away. Lock up, grab a bench, and stay for a set.</p><div class="meta">Chain of Lakes</div></div>
+      <div class="card reveal"><span class="tag">Art &amp; skyline</span><h3>Minneapolis Sculpture Garden</h3><p>Home of the Spoonbridge and Cherry — an easy, photogenic destination just off the downtown trails and the Loring/Cedar Lake connections.</p><div class="meta">Loring Park area</div></div>
+      <div class="card reveal" style="transition-delay:.05s"><span class="tag">Free &amp; green</span><h3>Como Park Conservatory</h3><p>Saint Paul's free conservatory and zoo, ringed by lakeside paths. A perfect cross-river destination with plenty to do once you arrive.</p><div class="meta">Saint Paul</div></div>
+      <div class="card reveal" style="transition-delay:.1s"><span class="tag">Big nature</span><h3>Theodore Wirth Park</h3><p>The largest park in Minneapolis — a quaking bog, wildflowers, and trails just minutes from downtown via the Grand Rounds and Cedar Lake connections.</p><div class="meta">Northwest Minneapolis</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ETIQUETTE & RULES ============ -->
+<section class="band" id="etiquette">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Share the road, share the trail</p>
+      <h2>Etiquette &amp; the Minnesota rules of the road</h2>
+      <p>Good biking is predictable and kind. Here's the short version of what's law in Minnesota and what keeps everyone happy out there.</p>
+    </div>
+    <div class="rules">
+      <div class="reveal">
+        <h3><svg class="ic" viewBox="0 0 40 40"><circle cx="11" cy="29" r="7" fill="none" stroke="var(--sky-deep)" stroke-width="3"/><circle cx="30" cy="29" r="7" fill="none" stroke="var(--sky-deep)" stroke-width="3"/><path d="M11 29 L18 16 L28 16 L30 29 M18 16 L24 29" fill="none" stroke="var(--sky-deep)" stroke-width="3" stroke-linejoin="round"/></svg> Rules of the road</h3>
+        <div class="rule"><span class="n">1</span><span><b>You're traffic.</b> Bikes have the same rights and duties as vehicles. Ride <b>with</b> traffic, on the right — never against it.</span></div>
+        <div class="rule"><span class="n">2</span><span><b>Stop-as-yield (since Aug 2023).</b> You may treat a <b>stop sign</b> as a yield: slow down, scan, and roll through only when it's clear. This does <b>not</b> apply to red lights — stop and wait for green like everyone else.</span></div>
+        <div class="rule"><span class="n">3</span><span><b>Three feet, minimum.</b> Drivers must give at least three feet when passing you, and more at higher speeds. They can't stop or park in a bike lane.</span></div>
+        <div class="rule"><span class="n">4</span><span><b>Lights after dark.</b> A white front light visible from 500 feet is required at night, plus a red rear reflector or light. Worth running both, day and night.</span></div>
+        <div class="rule"><span class="n">5</span><span><b>Signal &amp; stay predictable.</b> Use hand signals for turns and stops. Ride no more than two abreast, and don't impede the normal flow of traffic.</span></div>
+        <div class="rule"><span class="n">6</span><span><b>Helmets aren't required</b> at any age in Minnesota — but they're strongly recommended, and they're cheap insurance.</span></div>
+      </div>
+      <div class="reveal" style="transition-delay:.1s">
+        <h3><svg class="ic" viewBox="0 0 40 40"><path d="M8 20 H32 M24 12 L32 20 L24 28" fill="none" stroke="var(--sun-deep)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg> Trail &amp; neighbor etiquette</h3>
+        <div class="rule"><span class="n">›</span><span><b>Keep right, pass left.</b> On shared paths like the Greenway, stay to the right and pass on the left.</span></div>
+        <div class="rule"><span class="n">›</span><span><b>Call it out.</b> A friendly "on your left!" or a bell before you pass keeps everyone calm — especially around kids and dogs.</span></div>
+        <div class="rule"><span class="n">›</span><span><b>Slow down for people on foot.</b> Pedestrians always have the right of way on sidewalks and crosswalks; ease off and give them room.</span></div>
+        <div class="rule"><span class="n">›</span><span><b>Leave the Bluetooth speaker at home.</b> Earbuds out, ears open. It's both safer and a lot more pleasant for everyone sharing the trail.</span></div>
+        <div class="rule"><span class="n">›</span><span><b>Mind the sidewalks.</b> Riding on sidewalks is allowed in much of the metro but banned in business districts and some neighborhoods — and you must yield to people walking.</span></div>
+        <div class="rule"><span class="n">›</span><span><b>Park considerately.</b> Lock to a rack or signpost, never blocking the path or a doorway — same goes for the rental scooters and e-bikes.</span></div>
+        <div class="lawnote"><b>Heads up:</b> rules vary a little by city and by trail, and laws change. When it matters, check the official Minnesota and city resources below — links are in the next section.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RESOURCES ============ -->
+<section class="band alt" id="resources">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="eyebrow">Where to go next</p>
+      <h2>City &amp; state resources</h2>
+      <p>The official maps, laws, advocacy groups, and rental options. We keep this short and link out to the people who maintain the source of truth.</p>
+    </div>
+    <div class="links">
+      <a class="lnk reveal" href="https://www.minneapolismn.gov/getting-around/bicycling/" target="_blank" rel="noopener"><span class="t">City of Minneapolis — Bicycling <span class="arr">↗</span></span><span class="d">Official bike maps, lane info, winter maintenance, and the city's cycling program.</span></a>
+      <a class="lnk reveal" style="transition-delay:.04s" href="https://www.stpaul.gov/" target="_blank" rel="noopener"><span class="t">City of Saint Paul <span class="arr">↗</span></span><span class="d">Saint Paul's biking, trails, and public works resources.</span></a>
+      <a class="lnk reveal" style="transition-delay:.08s" href="https://dps.mn.gov/divisions/ots/safe-driving-information-and-laws/traffic-safety-laws/bicycle-and-pedestrian-laws" target="_blank" rel="noopener"><span class="t">MN Dept. of Public Safety — Bike Laws <span class="arr">↗</span></span><span class="d">The official, current rules of the road for bicyclists and pedestrians in Minnesota.</span></a>
+      <a class="lnk reveal" href="https://www.bikemn.org/" target="_blank" rel="noopener"><span class="t">Bicycle Alliance of Minnesota <span class="arr">↗</span></span><span class="d">Statewide advocacy, the Minnesota Bicycling Handbook, education, and the full law FAQ.</span></a>
+      <a class="lnk reveal" style="transition-delay:.04s" href="https://www.exploreminnesota.com/outdoors/biking/best-paved-bike-trails" target="_blank" rel="noopener"><span class="t">Explore Minnesota — Paved Trails <span class="arr">↗</span></span><span class="d">A statewide guide to the best paved bike trails, well beyond the metro.</span></a>
+      <a class="lnk reveal" style="transition-delay:.08s" href="https://www.minneapolismn.gov/getting-around/bicycling/bike-share/" target="_blank" rel="noopener"><span class="t">Bike &amp; Scooter Share <span class="arr">↗</span></span><span class="d">Nice Ride has retired; Lime, Spin &amp; Veo now run dockless scooters and e-bikes. Here's how to rent and park them.</span></a>
+      <a class="lnk reveal" href="https://www.metrotransit.org/" target="_blank" rel="noopener"><span class="t">Metro Transit — Bikes on Transit <span class="arr">↗</span></span><span class="d">Bring your bike on buses and light rail to stretch your range across the metro.</span></a>
+      <a class="lnk reveal" style="transition-delay:.04s" href="https://www.exploreminnesota.com/" target="_blank" rel="noopener"><span class="t">More to explore <span class="arr">↗</span></span><span class="d">Have a resource we should add? This list will keep growing. Reach out and we'll include it.</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE GAME ============ -->
+<section class="band" id="game">
+  <div class="wrap">
+    <div class="game reveal">
+      <p class="eyebrow" style="color:#5a3a14">The original idea, reborn</p>
+      <h2>Play Bike Twin Cities</h2>
+      <p>A scavenger hunt for everyday riders. The goal isn't distance — it's getting out to somewhere worth going, and sharing the moment you arrive.</p>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><b>Pick a spot</b><span>Choose a destination from "Places worth pedaling to" — or somewhere of your own.</span></div>
+        <div class="step"><div class="num">2</div><b>Ride there</b><span>Take the scenic way. The trip is half the point.</span></div>
+        <div class="step"><div class="num">3</div><b>Snap the proof</b><span>A photo of you and your bike at the destination.</span></div>
+        <div class="step"><div class="num">4</div><b>Share it</b><span>Post it and tag the ride so others can find good places to go.</span></div>
+      </div>
+      <span class="hashtag">#BikeTC · #BikeTwinCities</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <svg class="logo" viewBox="0 0 470 130" role="img" aria-label="Bike TC">
+          <text class="word" x="0" y="98" font-family="Fraunces" font-weight="900" font-size="104">Bik</text>
+          <circle class="ink" cx="222" cy="92" r="33"/>
+          <line class="ink" x1="194" y1="92" x2="250" y2="92"/>
+          <circle class="sun" cx="222" cy="92" r="6"/>
+          <path class="ink" d="M222 92 L258 46 L338 46 L360 92"/>
+          <path class="ink" d="M258 46 L292 92"/>
+          <line class="ink" x1="246" y1="44" x2="270" y2="44"/>
+          <circle class="sun" cx="292" cy="92" r="6"/>
+          <line class="ink sun-stroke" x1="338" y1="46" x2="338" y2="20"/>
+          <line class="ink sun-stroke" x1="312" y1="20" x2="364" y2="20"/>
+          <path class="ink" d="M387 70 A33 33 0 1 0 387 114"/>
+          <circle class="sun" cx="360" cy="92" r="6"/>
+        </svg>
+        <p class="ev">A community biking resource brought to you by <a href="#">Everspring Health</a> — because getting outside, on your own power, to somewhere good is its own kind of medicine.</p>
+      </div>
+      <div class="foot-links">
+        <div>
+          <b>Ride</b>
+          <a href="#trails">Trails &amp; paths</a>
+          <a href="#rides">Where to ride</a>
+          <a href="#game">The game</a>
+        </div>
+        <div>
+          <b>Know</b>
+          <a href="#etiquette">Etiquette &amp; rules</a>
+          <a href="#resources">City resources</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>bike.tc · Minneapolis &amp; Saint Paul, Minnesota</span>
+      <span>© <span id="yr"></span> Bike TC · Everyday biking in the Twin Cities</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  // staggered reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  // hero reveals fire immediately
+  window.addEventListener('load',()=>{
+    document.querySelectorAll('.hero .reveal').forEach(el=>el.classList.add('in'));
+  });
+</script>
+</body>
+</html>
