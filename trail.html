@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Trail guide — Bike TC</title>
 <meta name="description" content="Detailed guides to the greatest-hits bike trails of the Twin Cities — distances, connections, what to see, and tips. Brought to you by Everspring Health.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -38,7 +39,27 @@
   .nav-links{display:flex;gap:30px;align-items:center}
   .nav-links a{color:var(--ink);font-weight:600;font-size:.96rem}
   .nav-links a:hover{color:var(--sun-deep);text-decoration:none}
-  @media(max-width:860px){.nav-links{display:none}}
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;width:46px;height:46px;align-items:center;justify-content:center;margin-right:-8px}
+  .menu-btn .bar,.menu-btn .bar::before,.menu-btn .bar::after{display:block;width:26px;height:2.6px;background:var(--ink);border-radius:3px;transition:transform .25s ease, background .2s ease, top .25s ease}
+  .menu-btn .bar{position:relative}
+  .menu-btn .bar::before,.menu-btn .bar::after{content:"";position:absolute;left:0}
+  .menu-btn .bar::before{top:-8px}
+  .menu-btn .bar::after{top:8px}
+  .menu-btn.open .bar{background:transparent}
+  .menu-btn.open .bar::before{top:0;transform:rotate(45deg)}
+  .menu-btn.open .bar::after{top:0;transform:rotate(-45deg)}
+  @media(max-width:860px){
+    .menu-btn{display:flex}
+    .nav-links{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:stretch;gap:0;
+      background:var(--cream);border-bottom:1px solid var(--line);
+      padding:6px 28px 16px;box-shadow:0 16px 26px rgba(30,92,138,.14);
+    }
+    .nav-links.open{display:flex}
+    .nav-links a{padding:14px 2px;font-size:1.06rem;border-top:1px solid var(--line)}
+    .nav-links a:first-child{border-top:none}
+  }
 
   /* trail hero */
   .t-hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--sky-deep) 0%,var(--sky) 48%,#F6CB8E 88%,var(--sun) 100%);padding-top:18px}
@@ -129,13 +150,14 @@
         <path class="ink" d="M387 70 A33 33 0 1 0 387 114"/><circle class="sun" cx="360" cy="92" r="6"/>
       </svg>
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="nav-links">
       <a href="index.html#trails">Trails</a>
       <a href="index.html#rides">Where to Ride</a>
       <a href="index.html#etiquette">Etiquette &amp; Rules</a>
       <a href="index.html#resources">City Resources</a>
       <a href="index.html#game">The Game</a>
     </nav>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span class="bar"></span></button>
   </div>
 </header>
 
@@ -192,7 +214,7 @@
           <path class="ink" d="M387 70 A33 33 0 1 0 387 114"/><circle class="sun" cx="360" cy="92" r="6"/>
         </svg>
       </a>
-      <p class="ev">A community biking resource brought to you by <a href="#">Everspring Health</a>.</p>
+      <p class="ev">A community biking resource brought to you by <a href="https://www.everspringhealth.com" target="_blank" rel="noopener">Everspring Health</a>.</p>
     </div>
     <div class="foot-base">
       <span>bike.tc · Minneapolis &amp; Saint Paul, Minnesota</span>
@@ -460,6 +482,26 @@ function render(){
 
 document.getElementById('yr').textContent = new Date().getFullYear();
 render();
+
+// mobile nav toggle
+(function(){
+  const btn = document.querySelector('.menu-btn');
+  const links = document.getElementById('nav-links');
+  if(btn && links){
+    btn.addEventListener('click', ()=>{
+      const open = links.classList.toggle('open');
+      btn.classList.toggle('open', open);
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    });
+    links.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=>{
+      links.classList.remove('open');
+      btn.classList.remove('open');
+      btn.setAttribute('aria-expanded','false');
+      btn.setAttribute('aria-label','Open menu');
+    }));
+  }
+})();
 </script>
 </body>
 </html>

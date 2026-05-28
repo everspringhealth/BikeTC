@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1E5C8A"/>
+      <stop offset="0.55" stop-color="#3F8FCB"/>
+      <stop offset="1" stop-color="#FFC233"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#sky)"/>
+  <circle cx="32" cy="33" r="18" fill="none" stroke="#FFF8EC" stroke-width="3.6"/>
+  <g stroke="#FFF8EC" stroke-width="2.4" stroke-linecap="round">
+    <line x1="32" y1="33" x2="32" y2="15.4"/>
+    <line x1="32" y1="33" x2="47.2" y2="41.8"/>
+    <line x1="32" y1="33" x2="16.8" y2="41.8"/>
+  </g>
+  <circle cx="32" cy="33" r="4.2" fill="#FFF8EC"/>
+</svg>

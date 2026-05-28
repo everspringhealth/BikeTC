@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bike TC — Everyday biking in the Twin Cities</title>
 <meta name="description" content="A friendly resource for everyday biking in Minneapolis & Saint Paul: trails, etiquette, rules of the road, city resources, and good places to ride to. Brought to you by Everspring Health.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900;1,9..144,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -63,9 +64,28 @@
   .nav-links a:hover{color:var(--sun-deep);text-decoration:none}
   .nav-tag{font-size:.78rem;color:var(--ink-soft);font-weight:500;border-left:1px solid var(--line);padding-left:18px}
   .nav-tag b{color:var(--sky-deep)}
-  .menu-btn{display:none}
+  .menu-btn{display:none;background:none;border:0;cursor:pointer;width:46px;height:46px;align-items:center;justify-content:center;margin-right:-8px}
+  .menu-btn .bar,.menu-btn .bar::before,.menu-btn .bar::after{display:block;width:26px;height:2.6px;background:var(--ink);border-radius:3px;transition:transform .25s ease, background .2s ease, top .25s ease}
+  .menu-btn .bar{position:relative}
+  .menu-btn .bar::before,.menu-btn .bar::after{content:"";position:absolute;left:0}
+  .menu-btn .bar::before{top:-8px}
+  .menu-btn .bar::after{top:8px}
+  .menu-btn.open .bar{background:transparent}
+  .menu-btn.open .bar::before{top:0;transform:rotate(45deg)}
+  .menu-btn.open .bar::after{top:0;transform:rotate(-45deg)}
   @media(max-width:860px){
-    .nav-links{display:none}
+    .menu-btn{display:flex}
+    .nav-links{
+      display:none;position:absolute;top:100%;left:0;right:0;
+      flex-direction:column;align-items:stretch;gap:0;
+      background:var(--cream);border-bottom:1px solid var(--line);
+      padding:6px 28px 16px;box-shadow:0 16px 26px rgba(30,92,138,.14);
+    }
+    .nav-links.open{display:flex}
+    .nav-links a{padding:14px 2px;font-size:1.06rem;border-top:1px solid var(--line)}
+    .nav-links a:first-child{border-top:none}
+    .nav-tag{border-left:none;padding-left:2px;padding-top:14px;margin-top:6px;border-top:1px solid var(--line)}
+    .nav-tag br{display:none}
   }
 
   /* ---------- HERO ---------- */
@@ -216,7 +236,7 @@
         <circle class="sun" cx="360" cy="92" r="6"/>
       </svg>
     </a>
-    <nav class="nav-links">
+    <nav class="nav-links" id="nav-links">
       <a href="#trails">Trails</a>
       <a href="#rides">Where to Ride</a>
       <a href="#etiquette">Etiquette &amp; Rules</a>
@@ -224,6 +244,7 @@
       <a href="#game">The Game</a>
       <span class="nav-tag">brought to you by<br><b>Everspring Health</b></span>
     </nav>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links"><span class="bar"></span></button>
   </div>
 </header>
 
@@ -408,7 +429,7 @@
           <path class="ink" d="M387 70 A33 33 0 1 0 387 114"/>
           <circle class="sun" cx="360" cy="92" r="6"/>
         </svg>
-        <p class="ev">A community biking resource brought to you by <a href="#">Everspring Health</a> — because getting outside, on your own power, to somewhere good is its own kind of medicine.</p>
+        <p class="ev">A community biking resource brought to you by <a href="https://www.everspringhealth.com" target="_blank" rel="noopener">Everspring Health</a> — because getting outside, on your own power, to somewhere good is its own kind of medicine.</p>
       </div>
       <div class="foot-links">
         <div>
@@ -433,6 +454,25 @@
 
 <script>
   document.getElementById('yr').textContent = new Date().getFullYear();
+  // mobile nav toggle
+  (function(){
+    const btn = document.querySelector('.menu-btn');
+    const links = document.getElementById('nav-links');
+    if(btn && links){
+      btn.addEventListener('click', ()=>{
+        const open = links.classList.toggle('open');
+        btn.classList.toggle('open', open);
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+      links.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=>{
+        links.classList.remove('open');
+        btn.classList.remove('open');
+        btn.setAttribute('aria-expanded','false');
+        btn.setAttribute('aria-label','Open menu');
+      }));
+    }
+  })();
   // staggered reveal on scroll
   const io = new IntersectionObserver((entries)=>{
     entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
