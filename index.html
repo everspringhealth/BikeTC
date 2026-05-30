@@ -116,8 +116,7 @@
   .btn-ghost{background:transparent;color:var(--cream);border-color:rgba(255,255,255,.6)}
   .btn-ghost:hover{background:rgba(255,255,255,.14);text-decoration:none}
   /* skyline */
-  .skyline{display:block;width:100%;height:auto;position:relative;z-index:2;margin-top:48px}
-  .skyline path{fill:#16314A}
+  .skyline{display:block;width:100%;max-width:1000px;height:auto;margin:48px auto 0;position:relative;z-index:2}
 
   .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
   .reveal.in{opacity:1;transform:none}
@@ -269,14 +268,7 @@
     </div>
   </div>
   <!-- stylized skyline silhouette -->
-  <svg class="skyline" viewBox="0 0 1440 150" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,150 L0,96 L70,96 L70,70 L96,70 L96,96 L150,96 L150,60 L168,60 L168,40 L182,40 L182,60 L200,60 L200,96
-      L250,96 L250,30 L262,12 L274,30 L274,96 L320,96 L320,58 L356,58 L356,96 L410,96 L410,44 L426,44 L426,30 L434,30
-      L434,44 L450,44 L450,96 L505,96 L505,66 L560,66 L560,96 L610,96 L610,20 L628,20 L628,8 L636,8 L636,20 L654,20
-      L654,96 L705,96 L705,52 L745,52 L745,96 L800,96 L800,72 L850,72 L850,96 L905,96 L905,38 L922,38 L922,24 L930,24
-      L930,38 L948,38 L948,96 L1000,96 L1000,62 L1052,62 L1052,96 L1108,96 L1108,46 L1150,46 L1150,96 L1205,96 L1205,70
-      L1260,70 L1260,96 L1315,96 L1315,56 L1360,56 L1360,96 L1410,96 L1410,80 L1440,80 L1440,150 Z"/>
-  </svg>
+  <img class="skyline" src="skyline.svg" alt="Minneapolis and Saint Paul skyline">
 </section>
 
 <!-- ============ ETHOS ============ -->

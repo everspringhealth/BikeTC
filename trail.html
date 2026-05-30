@@ -72,8 +72,7 @@
   .chip{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);color:#fff;border-radius:30px;
     padding:8px 16px;font-size:.86rem;font-weight:600;backdrop-filter:blur(4px)}
   .chip b{color:var(--sun);font-weight:700}
-  .skyline{display:block;width:100%;height:auto;position:relative;z-index:2;margin-top:30px}
-  .skyline path{fill:#16314A}
+  .skyline{display:block;width:100%;max-width:600px;height:auto;margin:30px auto 0;position:relative;z-index:2}
 
   /* article */
   .article{max-width:760px;margin:0 auto;padding:64px 28px 10px}
@@ -170,14 +169,7 @@
     </div>
     <div class="stat-row wrap" id="h-stats" style="padding-left:0;padding-right:0"></div>
   </div>
-  <svg class="skyline" viewBox="0 0 1440 110" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,110 L0,72 L70,72 L70,54 L96,54 L96,72 L150,72 L150,46 L168,46 L168,30 L182,30 L182,46 L200,46 L200,72
-      L250,72 L250,22 L262,8 L274,22 L274,72 L320,72 L320,44 L356,44 L356,72 L410,72 L410,34 L426,34 L426,22 L434,22
-      L434,34 L450,34 L450,72 L505,72 L505,50 L560,50 L560,72 L610,72 L610,16 L628,16 L628,6 L636,6 L636,16 L654,16
-      L654,72 L705,72 L705,40 L745,40 L745,72 L800,72 L800,55 L850,55 L850,72 L905,72 L905,28 L922,28 L922,18 L930,18
-      L930,28 L948,28 L948,72 L1000,72 L1000,48 L1052,48 L1052,72 L1108,72 L1108,36 L1150,36 L1150,72 L1205,72 L1205,54
-      L1260,54 L1260,72 L1315,72 L1315,42 L1360,42 L1360,72 L1410,72 L1410,60 L1440,60 L1440,110 Z"/>
-  </svg>
+  <img class="skyline" src="skyline.svg" alt="Minneapolis and Saint Paul skyline">
 </section>
 
 <!-- ARTICLE (rendered by JS) -->
